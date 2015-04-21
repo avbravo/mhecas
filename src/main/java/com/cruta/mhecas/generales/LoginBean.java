@@ -129,8 +129,8 @@ public class LoginBean implements Serializable {
             JSFUtil.addSuccessMessage("Bienvenido "+usuarios.getNombre());
 //            if (validadorRoles.validarRoles(usuarios.getIdgrupousuario().getIdgrupousuario())) {
                 //verifica los requisitos
-   
-                return "/faces/index";
+
+              return "menu.xhtml";
 //            }
             
             

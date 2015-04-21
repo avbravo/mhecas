@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:pm="http://primefaces.org/mobile" xmlns:p="http://primefaces.org/ui">
+
+    <f:view renderKitId="PRIMEFACES_MOBILE" >
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>HECAS</title>
+            </f:facet>
+            <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true" />
+        </h:head>
+
+        <h:body>
+
+            <pm:page id="main">
+                <pm:header title="CREAR ALERTAS"></pm:header>
+                <pm:content>
+                    <p:button value="Regresar a Alertas" outcome="alertas" icon="ui-icon-info"/>   
+
+                    <pm:field>
+                        <p:graphicImage value="/resources/imagenes/picudo.jpg" width="40px" height="40px"/>
+                        <p:button value="Subir foto"  icon="ui-icon-info"/>   
+                    </pm:field>
+                     
+                    <pm:field>
+                        <p:outputLabel for="slider" value="% de Afectacion" />
+                        <pm:inputSlider id="slider" value="50"/>
+                    </pm:field>
+
+                    <p:gmap style="width:100%;height:15em" zoom="5" type="HYBRID" center="41.381542, 2.122893" widgetVar="wmap"/>
+
+
+                    <pm:field>
+                        <p:outputLabel for="textarea" value="Descripcion" />
+                        <p:inputTextarea id="textarea" />
+                    </pm:field>
+
+                    <pm:field>
+                        <p:outputLabel for="selectOneMenu" value="Cultivo" />
+                        <p:selectOneMenu id="selectOneMenu">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItem itemLabel="Option 1" itemValue="1" />
+                            <f:selectItem itemLabel="Option 2" itemValue="2" />
+                            <f:selectItem itemLabel="Option 3" itemValue="3" />
+                        </p:selectOneMenu>
+                    </pm:field>
+                    <pm:field>
+                        <p:outputLabel for="selectOneMenu2" value="Plaga" />
+                        <p:selectOneMenu id="selectOneMenu2">
+                            <f:selectItem itemLabel="Select One" itemValue="" />
+                            <f:selectItem itemLabel="Plaga 1" itemValue="1" />
+                            <f:selectItem itemLabel="Plaga 2" itemValue="2" />
+                            <f:selectItem itemLabel="Plaga 3" itemValue="3" />
+                        </p:selectOneMenu>
+                    </pm:field>
+       <pm:field>              
+<p:outputLabel  value="Etapa del cultivo"/>
+                                            <p:selectOneMenu value="" >
+                                                <f:selectItem itemLabel="Brote" itemValue="Brote" />
+                                                <f:selectItem itemLabel="Crecimiento" itemValue="Crecimiento" />
+                                                <f:selectItem itemLabel="Floracion" itemValue="Floracion" />
+                                                   <f:selectItem itemLabel="Fruto" itemValue="Fruto" />
+
+                                            </p:selectOneMenu>
+ </pm:field>
+                    
+                    <pm:field>
+                        <p:outputLabel  value="La plaga afecta"/>
+                        <h:panelGrid columns="2">
+
+                            <p:outputLabel  value="Flor"/>
+                            <p:selectBooleanCheckbox value="" />
+                            <p:outputLabel  value="Tallo"/>
+                            <p:selectBooleanCheckbox value="" />
+                            <p:outputLabel  value="Hoja"/>
+                            <p:selectBooleanCheckbox value="" />
+                            <p:outputLabel  value="Fruto"/>
+                            <p:selectBooleanCheckbox value="" />
+                            <p:outputLabel  value="Raices"/>
+                            <p:selectBooleanCheckbox value="" />
+                        </h:panelGrid>
+
+
+                    </pm:field>
+                </pm:content>
+                <pm:footer title=""></pm:footer>
+            </pm:page>
+            <pm:page id="second">
+                <pm:header title="Second Page"></pm:header>
+                <pm:content></pm:content>
+            </pm:page>
+        </h:body>
+
+    </f:view>
+</html>
+

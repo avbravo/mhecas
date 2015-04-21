@@ -1,14 +1,55 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:pm="http://primefaces.org/mobile" xmlns:p="http://primefaces.org/ui">
+
+    <f:view renderKitId="PRIMEFACES_MOBILE" >
     <h:head>
-        <title>Facelet Title</title>
+        <f:facet name="first">
+            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+            <title>HECAS</title>
+        </f:facet>
     </h:head>
+
     <h:body>
-        Hello from Facelets
-        <br />
-        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+
+        <pm:page id="main">
+            <pm:header title="HECAS"></pm:header>
+            <h:form>
+             <p:growl id="growl" showDetail="true" />
+            <pm:content>
+                <p:graphicImage value="/resources/imagenes/hecas.png" width="150px" height="150px"/>
+               
+        <pm:field>
+                    <p:outputLabel for="textarea2" value="Email" />
+                    <p:inputText id="textarea2" value="#{loginBean.usuarios.email}" />
+                    </pm:field> 
+                     <pm:field>
+                    <p:outputLabel  value="Password" />
+                    <p:password value="#{loginBean.usuarios.password}"/>
+                    </pm:field>  
+                <p:panelGrid columns="3">
+                
+                
+                </p:panelGrid>
+                
+            </pm:content>
+            <p:panelGrid columns="2">
+                <p:commandButton value="Login" actionListener="#{loginBean.verificarLogin()}" update="growl" icon="ui-icon-info"/>
+                <p:button value="Entrar" outcome="menu" icon="ui-icon-info"/>
+                <p:button value="Registrar" outcome="registrarusuarios" icon="ui-icon-info"/>
+            </p:panelGrid>
+            <pm:footer >
+                
+                
+                <center><p:button value="Olvido contraseña" outcome="recordarpassword" icon="ui-icon-info"/></center>
+                
+            </pm:footer>
+             </h:form>
+        </pm:page>
+       
     </h:body>
+
+</f:view>
 </html>
 
