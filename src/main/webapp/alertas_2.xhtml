@@ -30,19 +30,9 @@
 
 
                                 <p:panelGrid columns="3">
-                             
-                                    <p:fragment autoUpdate="true"> 
-                                            <p:commandLink 
-                                                oncomplete= "PF('dlg1').show()"
-                                                                                      
-                                                title="Haga clic aqui"
-                                                >
-                                                 <p:graphicImage value="/resources/fotos/#{car.foto}" height="100" width="100"/> 
-                                                <f:setPropertyActionListener value="#{car}" target="#{alertasSearchController.selected}" />  
-                                            </p:commandLink>
-                                        </p:fragment>
-                                    <h:panelGrid columns="1" cellpadding="5">
-  
+                                    <p:graphicImage value="/resources/fotos/#{car.foto}" height="100" width="100"/> 
+                                    <h:panelGrid columns="2" cellpadding="5">
+                                        <p:outputLabel value="Cultivo"/>
                                         <p:fragment autoUpdate="true"> 
                                             <p:commandLink 
                                                 oncomplete= "PF('dlg1').show()"
@@ -52,26 +42,18 @@
                                                 <f:setPropertyActionListener value="#{car}" target="#{alertasSearchController.selected}" />  
                                             </p:commandLink>
                                         </p:fragment>
-
+                                        <p:outputLabel value="Plaga"/>
                                         <p:outputLabel value="#{car.nombreplaga}"/>
-
+                                        <p:outputLabel value="Fecha"/>                                         
                                         <h:outputText value="#{car.fecha}">
                                             <f:convertDateTime pattern="dd/MM/yyyy" />
                                         </h:outputText>
-
+                                        <p:outputLabel value="Afectación"/>                                         
                                         <p:outputLabel value="#{car.gradoafectacion}"/>
-                                        <p:fragment autoUpdate="true"> 
-                                            <p:commandLink 
-                                                oncomplete= "PF('dlg2').show()"
-                                                value="Mapa"                                                 
-                                                title="Haga clic aqui"
-                                                >
-                                                <f:setPropertyActionListener value="#{car}" target="#{alertasSearchController.selected}" />  
-                                            </p:commandLink>
-                                    </p:fragment>
+
                                     </h:panelGrid>
 
-
+                                  
                                 </p:panelGrid>
 
 
@@ -82,26 +64,22 @@
 
                             </f:facet>
                         </p:dataList>  
-                        <p:dialog header="Descripcion" widgetVar="dlg1" showEffect="pop">
+                        <p:dialog header="Plaga" widgetVar="dlg1" showEffect="pop">
 
                             <p:outputPanel autoUpdate="true">
-                                
-                                
-                                    <p:inputTextarea value="#{alertasSearchController.selected.descripcion}" rows="5" cols="50"/> 
+                                <p:panelGrid id="panelAlertas" columns="2">
                                   
-                                
-                            </p:outputPanel>
-
-                        </p:dialog>
-
-                        <p:dialog header="Mapa" widgetVar="dlg2" showEffect="pop">
-
-                            <p:outputPanel autoUpdate="true">
- <p:outputLabel value="#{alertasSearchController.selected.latitud}, #{alertasSearchController.selected.longitud}"/>
-                                <p:gmap id="gmap" center="#{alertasSearchController.selected.latitud},#{alertasSearchController.selected.longitud}" zoom="10" type="HYBRID"  
-                                        style="width:140px;height:140px">
-                                </p:gmap>
-
+                                    <p:outputLabel value="Ubicacion" />
+                                                                                   
+                                        
+                                            <p:outputLabel value="#{alertasSearchController.selected.latitud}, #{alertasSearchController.selected.longitud}"/>
+                                          
+                                          <p:outputLabel value="Descripcion"/>  
+                                          <p:inputTextarea value="#{alertasSearchController.selected.descripcion}" rows="5" cols="50"/> 
+                                     <p:gmap id="gmap" center="#{alertasSearchController.selected.latitud},#{alertasSearchController.selected.longitud}" zoom="10" type="HYBRID"  
+                                            style="width:140px;height:140px">
+                                    </p:gmap>
+                                </p:panelGrid>
                             </p:outputPanel>
 
                         </p:dialog>
