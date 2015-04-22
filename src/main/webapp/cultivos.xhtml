@@ -13,35 +13,84 @@
         </h:head>
 
         <h:body>
+            <h:form id="form" prependId="false">
+                <pm:page id="main">
+                    <pm:header title="HECAS"></pm:header>
+                    <pm:content>
+                        <p:panelGrid columns="2">
+                            <p:button value="Regresar" outcome="menu" icon="ui-icon-info"/> 
+                            <p:button value="Crear" outcome="crearalerta" icon="ui-icon-info"/> 
+                        </p:panelGrid>
 
-            <pm:page id="main">
-                <pm:header title="HECAS">   </pm:header>
-                <pm:content>
-                    <p:panelGrid columns="2">
-                        <p:button value="Regresar" outcome="menu" icon="ui-icon-info"/> 
-                        <p:button value="Crear" outcome="crearcultivos" icon="ui-icon-info"/> 
-                    </p:panelGrid>
-                    <p:dataList value="#{dtBasicView.cars}" var="car" pm:data-inset="true" paginator="true" rows="5">
-                        <f:facet name="header">
-                            CULTIVOS
-                        </f:facet>
-                        <h:outputLink value="#">
-                            <p:graphicImage name="demo/images/car/#{car.brand}-big.gif" />
-                            <h2>#{car.id}</h2>
-                            <p>#{car.brand}</p>
-                            <p class="ui-li-aside"><strong>#{car.year}</strong></p>
-                        </h:outputLink>
-                        <f:facet name="footer">
+                        <p:dataList value="#{cultivosSearchController.cultivosList}" var="car" pm:data-inset="true" paginator="true" rows="5">
+                            <f:facet name="header">
+                                Cultivos
+                            </f:facet>
+                            <h:outputLink value="#">
 
-                        </f:facet>
-                    </p:dataList>  
 
-                </pm:content>
-                <pm:footer title=""></pm:footer>
-            </pm:page>
+                                <p:panelGrid columns="3">
+                             
+                                     <p:fragment autoUpdate="true"> 
+                                            <p:commandLink 
+                                                oncomplete= "PF('dlg1').show()"
+                                                                                      
+                                                title="Haga clic aqui"
+                                                >
+                                                 <p:graphicImage value="/resources/fotos/#{car.foto}" height="140" width="140"/> 
+                                                <f:setPropertyActionListener value="#{car}" target="#{cultivosSearchController.selected}" />  
+                                            </p:commandLink>
+                                        </p:fragment>
+                                    <h:panelGrid columns="1" cellpadding="5">
+  
+                                        <p:fragment autoUpdate="true"> 
+                                            <p:commandLink 
+                                                oncomplete= "PF('dlg1').show()"
+                                                value="#{car.nombrecultivo}"                                                 
+                                                title="Haga clic aqui"
+                                                >
+                                                <f:setPropertyActionListener value="#{car}" target="#{cultivosSearchController.selected}" />  
+                                            </p:commandLink>
+                                        </p:fragment>
 
+                                        <p:outputLabel value="#{car.nombrecientifico}"/>
+
+                                       
+
+                                       
+                                    </h:panelGrid>
+
+
+                                </p:panelGrid>
+
+
+
+
+                            </h:outputLink>
+                            <f:facet name="footer">
+
+                            </f:facet>
+                        </p:dataList>  
+                        <p:dialog header="Descripcion" widgetVar="dlg1" showEffect="pop">
+
+                            <p:outputPanel autoUpdate="true">
+                                
+                                
+                                    <p:inputTextarea value="#{cultivosSearchController.selected.descripcion}" rows="5" cols="50"/> 
+                                  
+                                
+                            </p:outputPanel>
+
+                        </p:dialog>
+
+                      
+                    </pm:content>
+                    <pm:footer title=""></pm:footer>
+                </pm:page>
+            </h:form>
         </h:body>
 
     </f:view>
 </html>
+
 
