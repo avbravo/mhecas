@@ -53,7 +53,7 @@ private String imagenURL ="/resources/fotos/foto.png";
 private String imagen="foto.png";
 Cultivos cultivos= new Cultivos();
 Plagas plagas =  new Plagas();
-
+ private UploadedFile file;
 
  private Boolean bflor;
  private Boolean btallo;
@@ -61,6 +61,16 @@ Plagas plagas =  new Plagas();
  private Boolean bfruto;
  private Boolean braices;
 
+    public UploadedFile getFile() {
+        return file;
+    }
+
+    public void setFile(UploadedFile file) {
+        this.file = file;
+    }
+
+ 
+ 
     public Boolean getBflor() {
         return bflor;
     }
@@ -321,7 +331,8 @@ Plagas plagas =  new Plagas();
     public void handleFileUpload(FileUploadEvent event) {
         try {
 
-            UploadedFile file = event.getFile();
+         //   UploadedFile file = event.getFile();
+            System.out.println(" file "+file.getFileName());
 //application code
             String destination = JSFUtil.getPathFotosAlertas();
             if (destination == null) {

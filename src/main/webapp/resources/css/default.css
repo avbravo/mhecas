@@ -27,9 +27,9 @@ a:link:hover, a:visited:hover  {
   font-weight : bold;
   text-decoration : underline;
 }
-/*.ui-icon-alerta{
+.ui-icon-alerta{
     background: url(#{resource['icons:alerta.png']}) no-repeat !important; 
     height:32px;
     width:32px;
     border: 0;
-}*/
+}

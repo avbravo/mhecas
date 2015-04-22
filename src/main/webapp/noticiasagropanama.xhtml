@@ -1,0 +1,40 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:pm="http://primefaces.org/mobile" xmlns:p="http://primefaces.org/ui">
+
+    <f:view renderKitId="PRIMEFACES_MOBILE" >
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>HECAS</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+
+            <pm:page id="menu">
+                <pm:header title="HECAS">
+<h:outputText value="AGRO Panama"  />
+<p:link outcome="menunoticias" value="Regresar"/>
+                </pm:header>
+                <pm:content>
+
+                       <p:feedReader value="http://www.panamaagro.com/rss/2-agricultura/" var="feed">
+                                            <h:outputText value="#{feed.title}" style="font-weight: bold;display:block"/>
+                                            <h:outputText value="#{feed.description.value}" escape="false"/>
+                                            <p:separator />
+                                        </p:feedReader>  
+
+
+
+
+                </pm:content>
+                <pm:footer title=""></pm:footer>
+            </pm:page>
+
+        </h:body>
+
+    </f:view>
+</html>
+

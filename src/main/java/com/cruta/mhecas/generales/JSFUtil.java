@@ -451,7 +451,7 @@ public static Integer getEdad(Date fecha){
      public static String getPathFotosAlertas() {
         try {             
         
-            String path = getPath() + "resources/fotos/";
+            String path = getPath() + "resources/alertas/";
  return path;
         } catch (Exception e) {
 

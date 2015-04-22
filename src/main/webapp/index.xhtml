@@ -4,52 +4,52 @@
       xmlns:f="http://java.sun.com/jsf/core" xmlns:pm="http://primefaces.org/mobile" xmlns:p="http://primefaces.org/ui">
 
     <f:view renderKitId="PRIMEFACES_MOBILE" >
-    <h:head>
-        <f:facet name="first">
-            <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-            <title>HECAS</title>
-        </f:facet>
-    </h:head>
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>HECAS</title>
+            </f:facet>
+        </h:head>
 
-    <h:body>
+        <h:body>
 
-        <pm:page id="main">
-            <pm:header title="HECAS"></pm:header>
-            <h:form>
-             <p:growl id="growl" showDetail="true" />
-            <pm:content>
-                <p:graphicImage value="/resources/imagenes/hecas.png" width="150px" height="150px"/>
-               
-        <pm:field>
-                    <p:outputLabel for="textarea2" value="Email" />
-                    <p:inputText id="textarea2" value="#{loginBean.usuarios.email}" />
-                    </pm:field> 
-                     <pm:field>
-                    <p:outputLabel  value="Password" />
-                    <p:password value="#{loginBean.usuarios.password}"/>
-                    </pm:field>  
-                <p:panelGrid columns="3">
-                
-                
-                </p:panelGrid>
-                
-            </pm:content>
-            <p:panelGrid columns="2">
-                <p:commandButton value="Login" actionListener="#{loginBean.verificarLogin()}" update="growl" icon="ui-icon-info"/>
-                <p:button value="Entrar" outcome="menu" icon="ui-icon-info"/>
-                <p:button value="Registrar" outcome="registrarusuarios" icon="ui-icon-info"/>
-            </p:panelGrid>
-            <pm:footer >
-                
-                
-                <center><p:button value="Olvido contraseña" outcome="recordarpassword" icon="ui-icon-info"/></center>
-                
-            </pm:footer>
-             </h:form>
-        </pm:page>
-       
-    </h:body>
+            <pm:page id="main">
+                <pm:header title="HECAS"></pm:header>
+                <h:form>
+                    <p:growl id="growl" showDetail="true" />
+                    <pm:content>
+                        <p:graphicImage value="/resources/imagenes/hecas.png" width="150px" height="150px"/>
 
-</f:view>
+                        <pm:field>
+                            <p:outputLabel for="textarea2" value="Email" />
+                            <p:inputText id="textarea2" value="#{loginBean.usuarios.email}" />
+                        </pm:field> 
+                        <pm:field>
+                            <p:outputLabel  value="Password" />
+                            <p:password value="#{loginBean.usuarios.password}"/>
+                        </pm:field>  
+                        <p:panelGrid columns="3">
+
+
+                        </p:panelGrid>
+
+                    </pm:content>
+                    <p:panelGrid columns="2">
+                        <p:commandButton value="Login" actionListener="#{loginBean.verificarLogin()}" update="growl" icon="ui-icon-info"/>
+                        <p:button value="Entrar" outcome="menu" icon="ui-icon-info"/>
+                        <p:button value="Registrar" outcome="registrarusuarios" icon="ui-icon-info"/>
+                    </p:panelGrid>
+                    <pm:footer >
+
+
+                        <center><p:button value="Olvido contraseña" outcome="recordarpassword" icon="ui-icon-info"/></center>
+
+                    </pm:footer>
+                </h:form>
+            </pm:page>
+
+        </h:body>
+
+    </f:view>
 </html>
 
