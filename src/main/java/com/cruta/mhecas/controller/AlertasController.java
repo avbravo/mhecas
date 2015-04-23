@@ -47,19 +47,19 @@ public class AlertasController implements Serializable, IController {
     GestorImpresion gestorImpresion;
     @Inject
     LoginBean loginBean;
- private Boolean nuevoregistro = false; 
-  Boolean desactivar =true;
-private String imagenURL ="/resources/fotos/foto.png";
-private String imagen="foto.png";
-Cultivos cultivos= new Cultivos();
-Plagas plagas =  new Plagas();
- private UploadedFile file;
+    private Boolean nuevoregistro = false;
+    Boolean desactivar = true;
+    private String imagenURL = "/resources/fotos/foto.png";
+    private String imagen = "foto.png";
+    Cultivos cultivos = new Cultivos();
+    Plagas plagas = new Plagas();
+    private UploadedFile file;
 
- private Boolean bflor;
- private Boolean btallo;
- private Boolean bhoja;
- private Boolean bfruto;
- private Boolean braices;
+    private Boolean bflor;
+    private Boolean btallo;
+    private Boolean bhoja;
+    private Boolean bfruto;
+    private Boolean braices;
 
     public UploadedFile getFile() {
         return file;
@@ -69,8 +69,6 @@ Plagas plagas =  new Plagas();
         this.file = file;
     }
 
- 
- 
     public Boolean getBflor() {
         return bflor;
     }
@@ -110,8 +108,7 @@ Plagas plagas =  new Plagas();
     public void setBraices(Boolean braices) {
         this.braices = braices;
     }
- 
-                                        
+
     public Plagas getPlagas() {
         return plagas;
     }
@@ -128,8 +125,6 @@ Plagas plagas =  new Plagas();
         this.cultivos = cultivos;
     }
 
-
-
     public Boolean getDesactivar() {
         return desactivar;
     }
@@ -138,14 +133,13 @@ Plagas plagas =  new Plagas();
         this.desactivar = desactivar;
     }
 
+    public Boolean getNuevoregistro() {
+        return nuevoregistro;
+    }
 
-    public Boolean getNuevoregistro() { 
-        return nuevoregistro; 
-    } 
- 
-    public void setNuevoregistro(Boolean nuevoregistro) { 
-        this.nuevoregistro = nuevoregistro; 
-    } 
+    public void setNuevoregistro(Boolean nuevoregistro) {
+        this.nuevoregistro = nuevoregistro;
+    }
 
     public Alertas getAlertas() {
         return alertas;
@@ -170,52 +164,83 @@ Plagas plagas =  new Plagas();
     }
 
     @PostConstruct
-    public void init() {   desactivar =true;
-        nuevoregistro = false; 
+    public void init() {
+        desactivar = true;
+        nuevoregistro = false;
 
     }
 
     @Override
     public String buscar() {
         alertas = alertasFacade.find(alertas.getNombrecultivo());
-        if(alertas == null){
-            encontrado=false;
+        if (alertas == null) {
+            encontrado = false;
             JSFUtil.addWarningMessage(rf.getMensajeArb("warning.noexiste"));
             alertas = new Alertas();
-        }
-        else{
+        } else {
             encontrado = true;
         }
         return "";
     }
 
     @Override
-    public String prepararNew(){  desactivar = false;
+    public String prepararNew() {
+        desactivar = false;
         try {
-            nuevoregistro = true; 
+            nuevoregistro = true;
 
             encontrado = false;
             alertas = new Alertas();
-        alertas.setFecha(JSFUtil.getFechaActual());
-        
+            alertas.setFecha(JSFUtil.getFechaActual());
+
         } catch (Exception e) {
             JSFUtil.addErrorMessage(e.getLocalizedMessage());
         }
         return null;
     }
+
+    /**
+     * calcularGradoAfectacion()
+     *
+     * @return
+     */
+    public String calcularGradoAfectacion() {
+        try {
+            if (alertas.getPorcentajeafectacion() > 50) {
+                alertas.setGradoafectacion("Alto");
+
+            } else {
+                if (alertas.getPorcentajeafectacion() > 35) {
+                    alertas.setGradoafectacion("Medio");
+
+                } else {
+                    alertas.setGradoafectacion("Bajo");
+                }
+            }
+
+        } catch (Exception e) {
+            JSFUtil.addErrorMessage(e.getLocalizedMessage());
+        }
+        return null;
+    }
+
     @Override
     public String save() {
         try {
             System.out.println("Guardar");
-            alertas.setTallo(btallo?"si":"no");
-            alertas.setHoja(bhoja?"si":"no");
-            alertas.setFruto(bfruto?"si":"no");
-            alertas.setRaices(braices?"si":"no");
-            alertas.setIdalerta(alertasFacade.getMaximo()+1);
- 
-           alertas.setPuntos(0);
-          alertas.setNombrecultivo(cultivos.getNombrecultivo());
-          alertas.setNombreplaga(plagas.getNombreplaga());
+            alertas.setTallo(btallo ? "si" : "no");
+            alertas.setHoja(bhoja ? "si" : "no");
+            alertas.setFruto(bfruto ? "si" : "no");
+            alertas.setRaices(braices ? "si" : "no");
+            alertas.setIdalerta(alertasFacade.getMaximo() + 1);
+            calcularGradoAfectacion();
+
+            alertas.setPuntos(0);
+            alertas.setNombrecultivo(cultivos.getNombrecultivo());
+            alertas.setNombreplaga(plagas.getNombreplaga());
+            if(alertas.getFlor() == null || alertas.getFoto().equals("")){
+                alertas.setFlor("");
+            }
             alertasFacade.create(alertas);
             JSFUtil.addSuccessMessage("Guardado exitosamente");
             alertas = new Alertas();
@@ -230,8 +255,8 @@ Plagas plagas =  new Plagas();
     @Override
     public String edit() {
         try {
-            
-           alertasFacade.edit(alertas);
+
+            alertasFacade.edit(alertas);
             JSFUtil.addSuccessMessage(rf.getMensajeArb("info.update"));
         } catch (Exception e) {
             JSFUtil.addErrorMessage(e.getLocalizedMessage());
@@ -251,9 +276,6 @@ Plagas plagas =  new Plagas();
         }
         return null;
     }
-
-  
-   
 
     @Override
     public String imprimir() {
@@ -278,24 +300,23 @@ Plagas plagas =  new Plagas();
         return null;
     }
 
-   
     @Override
-     public Integer contador(){
+    public Integer contador() {
         return alertasFacade.count();
     }
-
-
 
     @Override
     public String elementoSeleccionado() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
     @Override
-    public String habilitarConsultar() {        desactivar=true; 
-        alertas.setNombrecultivo(""); 
-        this.nuevoregistro = false; 
-        return ""; 
-    } 
+    public String habilitarConsultar() {
+        desactivar = true;
+        alertas.setNombrecultivo("");
+        this.nuevoregistro = false;
+        return "";
+    }
 
     @Override
     public Integer getIdSiguiente() {
@@ -303,21 +324,21 @@ Plagas plagas =  new Plagas();
     }
 
     public void onPointSelect(PointSelectEvent event) {
-      System.out.println("onPointSelect");
-      try{
-        LatLng latlng = event.getLatLng();
-        alertas.setLatitud(latlng.getLat());
-        
-                  alertas.setLongitud(String.valueOf(latlng.getLng()));
-          System.out.println("codigo");
-      }catch(Exception ex){
-        JSFUtil.addErrorMessage("Error "+ex.getLocalizedMessage());
-      }
-                  
-       // addMessage(new FacesMessage(FacesMessage.SEVERITY_INFO, "Point Selected", "Lat:" + latlng.getLat() + ", Lng:" + latlng.getLng()));
+        System.out.println("onPointSelect");
+        try {
+            LatLng latlng = event.getLatLng();
+            alertas.setLatitud(latlng.getLat());
+
+            alertas.setLongitud(String.valueOf(latlng.getLng()));
+            System.out.println(";atitud "+ alertas.getLatitud() + "longitud: " +alertas.getLongitud());
+            JSFUtil.addWarningMessage(";atitud "+ alertas.getLatitud() + "longitud: " +alertas.getLongitud());
+        } catch (Exception ex) {
+            JSFUtil.addErrorMessage("Error " + ex.getLocalizedMessage());
+        }
+
+        // addMessage(new FacesMessage(FacesMessage.SEVERITY_INFO, "Point Selected", "Lat:" + latlng.getLat() + ", Lng:" + latlng.getLng()));
     }
-   
-     
+
 //    public void notificarPUSH() {
 //
 //        String summary = "Nuevo Elemento";
@@ -327,12 +348,11 @@ Plagas plagas =  new Plagas();
 //        EventBus eventBus = EventBusFactory.getDefault().eventBus();
 //        eventBus.publish(CHANNEL, new FacesMessage(StringEscapeUtils.escapeHtml(summary), StringEscapeUtils.escapeHtml(detail)));
 //    }
-    
     public void handleFileUpload(FileUploadEvent event) {
         try {
 
-         //   UploadedFile file = event.getFile();
-            System.out.println(" file "+file.getFileName());
+            //   UploadedFile file = event.getFile();
+            System.out.println(" file " + file.getFileName());
 //application code
             String destination = JSFUtil.getPathFotosAlertas();
             if (destination == null) {

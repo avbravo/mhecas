@@ -14,111 +14,134 @@
 
         <h:body>
             <h:form id="form" prependId="false">
-                 <p:growl id="growl" showDetail="true" />
-            <pm:page id="main">
-                <pm:header title="CREAR ALERTAS"></pm:header>
-                <pm:content>
-                    <p:button value="Regresar a Alertas" outcome="alertas" icon="ui-icon-info"/>   
+                <p:growl id="growl" showDetail="true" />
+                <pm:page id="main">
+                    <pm:header title="CREAR ALERTAS"></pm:header>
+                    <pm:content>
+                        <p:button value="Regresar a Alertas" outcome="alertas" icon="ui-icon-info"/>   
 
-                    <pm:field>
-                        <h:form enctype="multipart/form-data">
-                             <h:graphicImage id="foto" value="/resources/alertas/#{alertasController.alertas.foto}" height="80" width="80"/>
-                                    <p:fileUpload value="#{alertasController.handleFileUpload}"   mode="simple" update="growl,foto"/>
-                              <p:commandButton value="Upload" icon="ui-icon-arrow-u" ajax="false" actionListener="#{alertasController.handleFileUpload}" disabled="false"/>      
-                              </h:form>
-                    </pm:field>
-                     
-                    <pm:field>
-                        <p:outputLabel for="slider" value="% de Afectacion" />
-                        <pm:inputSlider id="slider" value="50"/>
-                    </pm:field>
+                        <pm:field>
+                            <h:form enctype="multipart/form-data">
+                                <h:graphicImage id="foto" value="/resources/alertas/#{alertasController.alertas.foto}" height="80" width="80"/>
+                                <p:fileUpload value="#{alertasController.handleFileUpload}"   mode="simple" update="growl,foto"/>
+                                <p:commandButton value="Upload" icon="ui-icon-arrow-u" ajax="false" actionListener="#{alertasController.handleFileUpload}" disabled="false"/>      
+                            </h:form>
+                        </pm:field>
 
-                    <p:gmap style="width:100%;height:15em" zoom="5" type="HYBRID" center="41.381542, 2.122893" widgetVar="wmap"/>
+                        <pm:field>
+                            <p:outputLabel for="slider" value="% de Afectacion" />
+                            <h:panelGroup>
+                                <p:outputPanel autoUpdate="true">
+                                    <p:outputLabel value="#{alertasController.alertas.gradoafectacion}"/>
+                                </p:outputPanel>
+                                <pm:inputSlider id="slider" valueChangeListener="#{alertasController.calcularGradoAfectacion()}" maxValue="100" minValue="0" value="#{alertasController.alertas.porcentajeafectacion}"/>
+                            </h:panelGroup>
+                        </pm:field>
+                        <pm:field>
+                            <p:outputLabel  value="Latitud"/>
+                            <p:inputText id="latitud"  value="#{alertasController.alertas.latitud}"/>
+                        </pm:field>
+                        <pm:field>
+                            <p:outputLabel  value="Longitud"/>
 
-
-                    <pm:field>
-                        <p:outputLabel for="descripcion" value="Descripcion" />
-                        <p:inputTextarea id="descripcion" required="true" requiredMessage="Ingrese descripcion" value="#{alertasController.alertas.descripcion}"/>
-                    </pm:field>
-
-                    <pm:field>
-                        <p:outputLabel  value="Cultivo"/>
-
-                                            <p:selectOneMenu converter="cultivosConverter" 
-                                                             value="#{alertasController.cultivos}"
-                                                             filter="true" filterMatchMode="startsWith" effect="fade">
-
-                                                <!-- TODO: update below reference to list of available items-->
-                                                <f:selectItem itemLabel="Seleccione " itemValue="#{null}"/>
-                                                <f:selectItems value="#{cultivosSearchController.items}"
-                                                               var="itemp"
-                                                               itemValue="#{itemp}"
-                                                               itemLabel="#{itemp.nombrecultivo}" /> 
+                            <p:inputText  id="longitud" value="#{alertasController.alertas.longitud}"/>
+                        </pm:field>
+                        <pm:field>
+                            <p:outputLabel  value="Mapa"/>
+                            <p:gmap   id="gmap2" center="7.8921187961483525, -80.4254150390625" zoom="15" type="ROADMAP" style="width:100%;height:15em">
+                                <p:ajax event="pointSelect" listener="#{alertasController.onPointSelect}" update="growl,latitud,longitud" />
+                            </p:gmap>
+                        </pm:field>
 
 
-                                            </p:selectOneMenu>
-                    </pm:field>
-                    <pm:field>
-                        <p:outputLabel  value="Plaga"/>
-
-                                            <p:selectOneMenu converter="plagasConverter" 
-                                                             value="#{alertasController.plagas}"
-                                                             filter="true" filterMatchMode="startsWith" effect="fade">
-
-                                                <!-- TODO: update below reference to list of available items-->
-                                                <f:selectItem itemLabel="Seleccione " itemValue="#{null}"/>
-                                                <f:selectItems value="#{plagasSearchController.items}"
-                                                               var="itemp"
-                                                               itemValue="#{itemp}"
-                                                               itemLabel="#{itemp.nombreplaga}" /> 
+                        <!--                    <p:gmap style="width:100%;height:15em" zoom="5" type="HYBRID" center="41.381542, 2.122893" widgetVar="wmap"/>-->
 
 
-                                            </p:selectOneMenu>
-                    </pm:field>
-       <pm:field>              
-<p:outputLabel  value="Etapa del cultivo"/>
-                                            <p:selectOneMenu value="#{alertasController.alertas.etapadelcultivo}" >
-                                                <f:selectItem itemLabel="Brote" itemValue="Brote" />
-                                                <f:selectItem itemLabel="Crecimiento" itemValue="Crecimiento" />
-                                                <f:selectItem itemLabel="Floracion" itemValue="Floracion" />
-                                                   <f:selectItem itemLabel="Fruto" itemValue="Fruto" />
+                        <pm:field>
+                            <p:outputLabel for="descripcion" value="Descripcion" />
+                            <p:inputTextarea id="descripcion" required="true" requiredMessage="Ingrese descripcion" value="#{alertasController.alertas.descripcion}"/>
+                        </pm:field>
 
-                                            </p:selectOneMenu>
- </pm:field>
-                    
-                    <pm:field>
-                        <p:outputLabel  value="La plaga afecta"/>
-                        <h:panelGrid columns="2">
+                        <pm:field>
+                            <p:outputLabel  value="Cultivo"/>
 
-                         <p:outputLabel  value="Flor"/>
-                                                <p:selectBooleanCheckbox value="#{alertasController.bflor}" />
-                                                <p:outputLabel  value="Tallo"/>
-                                                <p:selectBooleanCheckbox value="#{alertasController.btallo}" />
-                                                <p:outputLabel  value="Hoja"/>
-                                                <p:selectBooleanCheckbox value="#{alertasController.bhoja}" />
-                                                <p:outputLabel  value="Fruto"/>
-                                                <p:selectBooleanCheckbox value="#{alertasController.bfruto}" />
-                                                <p:outputLabel  value="Raices"/>
-                                                <p:selectBooleanCheckbox value="#{alertasController.braices}" />
-                        </h:panelGrid>
+                            <p:selectOneMenu converter="cultivosConverter" 
+                                             value="#{alertasController.cultivos}"
+                                             filter="true" filterMatchMode="startsWith" effect="fade">
+
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItem itemLabel="Seleccione " itemValue="#{null}"/>
+                                <f:selectItems value="#{cultivosSearchController.items}"
+                                               var="itemp"
+                                               itemValue="#{itemp}"
+                                               itemLabel="#{itemp.nombrecultivo}" /> 
 
 
-                    </pm:field>
-                    <pm:field>
-                          <p:outputLabel  value="Fecha"/>
-                                            <p:calendar value="#{alertasController.alertas.fecha}" pattern="dd/MM/yyyy" />
+                            </p:selectOneMenu>
+                        </pm:field>
+                        <pm:field>
+                            <p:outputLabel  value="Plaga"/>
 
-                    </pm:field>
-                </pm:content>
-                <pm:footer title="">
-                       <p:commandButton value="Guardar" update="form,growl" actionListener="#{alertasController.save()}"/>
-                </pm:footer>
-            </pm:page>
-            <pm:page id="second">
-                <pm:header title="Second Page"></pm:header>
-                <pm:content></pm:content>
-            </pm:page>
-                </h:form>
+                            <p:selectOneMenu converter="plagasConverter" 
+                                             value="#{alertasController.plagas}"
+                                             filter="true" filterMatchMode="startsWith" effect="fade">
+
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItem itemLabel="Seleccione " itemValue="#{null}"/>
+                                <f:selectItems value="#{plagasSearchController.items}"
+                                               var="itemp"
+                                               itemValue="#{itemp}"
+                                               itemLabel="#{itemp.nombreplaga}" /> 
+
+
+                            </p:selectOneMenu>
+                        </pm:field>
+                        <pm:field>              
+                            <p:outputLabel  value="Etapa del cultivo"/>
+                            <p:selectOneMenu value="#{alertasController.alertas.etapadelcultivo}" >
+                                <f:selectItem itemLabel="Brote" itemValue="Brote" />
+                                <f:selectItem itemLabel="Crecimiento" itemValue="Crecimiento" />
+                                <f:selectItem itemLabel="Floracion" itemValue="Floracion" />
+                                <f:selectItem itemLabel="Fruto" itemValue="Fruto" />
+
+                            </p:selectOneMenu>
+                        </pm:field>
+
+                        <pm:field>
+                            <p:outputLabel  value="La plaga afecta"/>
+                            <h:panelGrid columns="2">
+
+                                <p:outputLabel  value="Flor"/>
+                                <pm:switch offLabel="No" onLabel="Si" value="#{alertasController.bflor}"></pm:switch>
+
+                                <p:outputLabel  value="Tallo"/>
+                                <pm:switch offLabel="No" onLabel="Si" value="#{alertasController.btallo}"></pm:switch>
+
+                                <p:outputLabel  value="Hoja"/>
+                                <pm:switch offLabel="No" onLabel="Si" value="#{alertasController.bhoja}"></pm:switch>
+                                <p:outputLabel  value="Fruto"/>
+                                <pm:switch offLabel="No" onLabel="Si" value="#{alertasController.bfruto}"></pm:switch>
+                                <p:outputLabel  value="Raices"/>
+                                <pm:switch offLabel="No" onLabel="Si" value="#{alertasController.braices}"></pm:switch>
+                            </h:panelGrid>
+
+
+                        </pm:field>
+                        <pm:field>
+                            <p:outputLabel  value="Fecha"/>
+                            <p:calendar value="#{alertasController.alertas.fecha}" pattern="dd/MM/yyyy" />
+
+                        </pm:field>
+                    </pm:content>
+                    <pm:footer title="">
+                        <p:commandButton value="Guardar" update="form,growl" actionListener="#{alertasController.save()}"/>
+                    </pm:footer>
+                </pm:page>
+                <pm:page id="second">
+                    <pm:header title="Second Page"></pm:header>
+                    <pm:content></pm:content>
+                </pm:page>
+            </h:form>
         </h:body>
 
     </f:view>
