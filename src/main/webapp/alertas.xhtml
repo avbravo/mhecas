@@ -30,19 +30,19 @@
 
 
                                 <p:panelGrid columns="3">
-                             
-                                     <p:fragment autoUpdate="true"> 
-                                            <p:commandLink 
-                                                oncomplete= "PF('dlg1').show()"
-                                                                                      
-                                                title="Haga clic aqui"
-                                                >
-                                                 <p:graphicImage value="/resources/fotos/#{car.foto}" height="140" width="140"/> 
-                                                <f:setPropertyActionListener value="#{car}" target="#{alertasSearchController.selected}" />  
-                                            </p:commandLink>
-                                        </p:fragment>
+
+                                    <p:fragment autoUpdate="true"> 
+                                        <p:commandLink 
+                                            oncomplete= "PF('dlg1').show()"
+
+                                            title="Haga clic aqui"
+                                            >
+                                            <p:graphicImage value="/resources/fotos/#{car.foto}" height="100" width="100"/> 
+                                            <f:setPropertyActionListener value="#{car}" target="#{alertasSearchController.selected}" />  
+                                        </p:commandLink>
+                                    </p:fragment>
                                     <h:panelGrid columns="1" cellpadding="5">
-  
+
                                         <p:fragment autoUpdate="true"> 
                                             <p:commandLink 
                                                 oncomplete= "PF('dlg1').show()"
@@ -68,7 +68,7 @@
                                                 >
                                                 <f:setPropertyActionListener value="#{car}" target="#{alertasSearchController.selected}" />  
                                             </p:commandLink>
-                                    </p:fragment>
+                                        </p:fragment>
                                     </h:panelGrid>
 
 
@@ -85,11 +85,11 @@
                         <p:dialog header="Descripcion" widgetVar="dlg1" showEffect="pop">
 
                             <p:outputPanel autoUpdate="true">
-                                
-                                
-                                    <p:inputTextarea value="#{alertasSearchController.selected.descripcion}" rows="5" cols="50"/> 
-                                  
-                                
+
+
+                                <p:inputTextarea value="#{alertasSearchController.selected.descripcion}" rows="5" cols="50"/> 
+
+
                             </p:outputPanel>
 
                         </p:dialog>
@@ -97,7 +97,7 @@
                         <p:dialog header="Mapa" widgetVar="dlg2" showEffect="pop">
 
                             <p:outputPanel autoUpdate="true">
- <p:outputLabel value="#{alertasSearchController.selected.latitud}, #{alertasSearchController.selected.longitud}"/>
+                                <p:outputLabel value="#{alertasSearchController.selected.latitud}, #{alertasSearchController.selected.longitud}"/>
                                 <p:gmap id="gmap" center="#{alertasSearchController.selected.latitud},#{alertasSearchController.selected.longitud}" 
                                         zoom="10" type="HYBRID"  
                                         style="width:300px;height:140px">
