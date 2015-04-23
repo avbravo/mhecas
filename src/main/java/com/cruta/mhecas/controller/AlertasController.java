@@ -206,11 +206,11 @@ public class AlertasController implements Serializable, IController {
      */
     public String calcularGradoAfectacion() {
         try {
-            if (alertas.getPorcentajeafectacion() > 50) {
+            if (alertas.getPorcentajeafectacion() >= 50) {
                 alertas.setGradoafectacion("Alto");
 
             } else {
-                if (alertas.getPorcentajeafectacion() > 35) {
+                if (alertas.getPorcentajeafectacion() >= 21) {
                     alertas.setGradoafectacion("Medio");
 
                 } else {

@@ -35,9 +35,9 @@
 
                     </pm:content>
                     <p:panelGrid columns="2">
-                        <p:commandButton value="Login" actionListener="#{loginBean.verificarLogin()}" update="growl" icon="ui-icon-info"/>
-                        <p:button value="Entrar" outcome="menu" icon="ui-icon-info"/>
-                        <p:button value="Registrar" outcome="registrarusuarios" icon="ui-icon-info"/>
+                        <p:commandButton value="Login" action="#{loginBean.verificarLogin()}" update="growl" icon="ui-icon-info"/>
+                      
+                        <p:button value="Registrarse" outcome="registrarusuarios" icon="ui-icon-info"/>
                     </p:panelGrid>
                     <pm:footer >
 
@@ -47,7 +47,10 @@
                     </pm:footer>
                 </h:form>
             </pm:page>
-
+<pm:page id="second">
+           <pm:header title="Second Page"></pm:header>
+           <pm:content></pm:content>
+    </pm:page>
         </h:body>
 
     </f:view>

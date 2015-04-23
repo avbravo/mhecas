@@ -126,20 +126,23 @@ public class LoginBean implements Serializable {
             usuarios = u;
                   
             setLogeado(Boolean.TRUE);
-            JSFUtil.addSuccessMessage("Bienvenido "+usuarios.getNombre());
+//            JSFUtil.addSuccessMessage("Bienvenido "+usuarios.getNombre());
 //            if (validadorRoles.validarRoles(usuarios.getIdgrupousuario().getIdgrupousuario())) {
                 //verifica los requisitos
 
-              return "menu.xhtml";
+//              return "menu.xhtml";
 //            }
-            
-            
+          return  "menu";
         } catch (Exception e) {
             JSFUtil.addErrorMessage(e, "verificarLogin()");
         }
         return null;
     }
     
+    
+    public String home(){
+        return "index";
+    }
     public String logout() {
         try {
             HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(false);
@@ -154,7 +157,8 @@ public class LoginBean implements Serializable {
             } catch (IOException ex) {
                 JSFUtil.addErrorMessage(ex.getLocalizedMessage());
             }
-            return "/hecas/faces/index.xhtml?faces-redirect=true";
+//            return "/hecas/faces/index.xhtml?faces-redirect=true";
+            return "index";
         } catch (Exception e) {
             JSFUtil.addErrorMessage(e, "logout()");
         }

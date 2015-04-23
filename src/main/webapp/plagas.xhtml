@@ -15,16 +15,16 @@
         <h:body>
             <h:form id="form" prependId="false">
                 <pm:page id="main">
-                    <pm:header title="HECAS"></pm:header>
+                    <pm:header title="PLAGAS"></pm:header>
                     <pm:content>
                         <p:panelGrid columns="2">
                             <p:button value="Regresar" outcome="menu" icon="ui-icon-info"/> 
-                            <p:button value="Crear" outcome="cultivoscrear" icon="ui-icon-info"/> 
+                            <p:button value="Crear" outcome="plagascrear" icon="ui-icon-info"/> 
                         </p:panelGrid>
 
-                        <p:dataList value="#{cultivosSearchController.cultivosList}" var="car" pm:data-inset="true" paginator="true" rows="5">
+                        <p:dataList value="#{plagasSearchController.plagasList}" var="car" pm:data-inset="true" paginator="true" rows="5">
                             <f:facet name="header">
-                                Cultivos
+                              Plagas
                             </f:facet>
                             <h:outputLink value="#">
 
@@ -38,7 +38,7 @@
                                                 title="Haga clic aqui"
                                                 >
                                                  <p:graphicImage value="/resources/fotos/#{car.foto}" height="140" width="140"/> 
-                                                <f:setPropertyActionListener value="#{car}" target="#{cultivosSearchController.selected}" />  
+                                                <f:setPropertyActionListener value="#{car}" target="#{plagasSearchController.selected}" />  
                                             </p:commandLink>
                                         </p:fragment>
                                     <h:panelGrid columns="1" cellpadding="5">
@@ -46,10 +46,10 @@
                                         <p:fragment autoUpdate="true"> 
                                             <p:commandLink 
                                                 oncomplete= "PF('dlg1').show()"
-                                                value="#{car.nombrecultivo}"                                                 
+                                                value="#{car.nombreplaga}"                                                 
                                                 title="Haga clic aqui"
                                                 >
-                                                <f:setPropertyActionListener value="#{car}" target="#{cultivosSearchController.selected}" />  
+                                                <f:setPropertyActionListener value="#{car}" target="#{plagasSearchController.selected}" />  
                                             </p:commandLink>
                                         </p:fragment>
 
@@ -76,7 +76,7 @@
                             <p:outputPanel autoUpdate="true">
                                 
                                 
-                                    <p:inputTextarea value="#{cultivosSearchController.selected.descripcion}" rows="5" cols="50"/> 
+                                    <p:inputTextarea value="#{plagasSearchController.selected.descripcion}" rows="5" cols="50"/> 
                                   
                                 
                             </p:outputPanel>

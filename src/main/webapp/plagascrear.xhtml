@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:pm="http://primefaces.org/mobile" xmlns:p="http://primefaces.org/ui">
+
+    <f:view renderKitId="PRIMEFACES_MOBILE" >
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>HECAS</title>
+            </f:facet>
+            <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true" />
+        </h:head>
+
+        <h:body>
+            <h:form id="form" prependId="false">
+                <p:growl id="growl" showDetail="true" />
+                <pm:page id="main">
+                    <pm:header title="CREAR PLAGAS"></pm:header>
+                    <pm:content>
+                        <p:button value="Regresar a Plagas" outcome="plagas" icon="ui-icon-info"/>   
+
+                        <pm:field>
+                            <h:form enctype="multipart/form-data">
+                                 <h:graphicImage id="foto" value="/resources/fotos/#{plagasController.plagas.foto}" height="80" width="80"/>
+                                    <p:fileUpload   auto="true" label="Foto" fileUploadListener="#{plagasController.handleFileUpload}" update="growl,foto"/>
+
+                            </h:form>
+                        </pm:field>
+
+                        <pm:field>
+                              <p:outputLabel  value="Nombre"/>
+                                    <p:inputText size="40" value="#{plagasController.plagas.nombreplaga}"/>
+                        </pm:field>
+                        <pm:field>
+                           <p:outputLabel  value="Nombre cientifico"/>                                     
+                                    <p:inputText size="40" value="#{plagasController.plagas.nombrecientifico}"/>
+                        </pm:field>
+                        <pm:field>
+                               <p:outputLabel  value="Descripcion"/>
+                                    <p:inputTextarea  value="#{plagasController.plagas.descripcion}"/>
+                        </pm:field>
+                        <pm:field>
+                            <p:outputLabel  value="Tipo"/>
+                                    
+                                    <p:inputTextarea  placeholder="Plaga,enfermedad" value="#{plagasController.plagas.descripcion}"/>
+                        </pm:field>
+
+
+                        <!--                    <p:gmap style="width:100%;height:15em" zoom="5" type="HYBRID" center="41.381542, 2.122893" widgetVar="wmap"/>-->
+
+
+                        <pm:field>
+                            <p:outputLabel  value="A quien afecta"/>
+                                    <p:inputTextarea  placeholder="A quien afecta" value="#{plagasController.plagas.aquienafecta}"/>
+                        </pm:field>
+
+                        <pm:field>
+                            
+                        </pm:field>
+                        
+
+                    
+                    </pm:content>
+                    <pm:footer title="">
+                        <p:commandButton value="Guardar" update="form,growl" actionListener="#{plagasController.save()}"/>
+                            <p:button value="Regresar" outcome="plagas" />
+                    </pm:footer>
+                </pm:page>
+                <pm:page id="second">
+                    <pm:header title="Second Page"></pm:header>
+                    <pm:content></pm:content>
+                </pm:page>
+            </h:form>
+        </h:body>
+
+    </f:view>
+</html>
+

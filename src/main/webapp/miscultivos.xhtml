@@ -19,28 +19,19 @@
                     <pm:content>
                         <p:panelGrid columns="2">
                             <p:button value="Regresar" outcome="menu" icon="ui-icon-info"/> 
-                            <p:button value="Crear" outcome="cultivoscrear" icon="ui-icon-info"/> 
+                            <p:button value="Crear" outcome="miscultivoscrear" icon="ui-icon-info"/> 
                         </p:panelGrid>
 
-                        <p:dataList value="#{cultivosSearchController.cultivosList}" var="car" pm:data-inset="true" paginator="true" rows="5">
+                        <p:dataList value="#{miscultivosSearchController.miscultivosList}" var="car" pm:data-inset="true" paginator="true" rows="5">
                             <f:facet name="header">
-                                Cultivos
+                                Mis Cultivos
                             </f:facet>
                             <h:outputLink value="#">
 
 
                                 <p:panelGrid columns="3">
                              
-                                     <p:fragment autoUpdate="true"> 
-                                            <p:commandLink 
-                                                oncomplete= "PF('dlg1').show()"
-                                                                                      
-                                                title="Haga clic aqui"
-                                                >
-                                                 <p:graphicImage value="/resources/fotos/#{car.foto}" height="140" width="140"/> 
-                                                <f:setPropertyActionListener value="#{car}" target="#{cultivosSearchController.selected}" />  
-                                            </p:commandLink>
-                                        </p:fragment>
+                                   
                                     <h:panelGrid columns="1" cellpadding="5">
   
                                         <p:fragment autoUpdate="true"> 
@@ -49,11 +40,11 @@
                                                 value="#{car.nombrecultivo}"                                                 
                                                 title="Haga clic aqui"
                                                 >
-                                                <f:setPropertyActionListener value="#{car}" target="#{cultivosSearchController.selected}" />  
+                                                <f:setPropertyActionListener value="#{car}" target="#{miscultivosSearchController.selected}" />  
                                             </p:commandLink>
                                         </p:fragment>
 
-                                        <p:outputLabel value="#{car.nombrecientifico}"/>
+                                        <p:outputLabel value="#{car.datossiembra}"/>
 
                                        
 
@@ -76,7 +67,7 @@
                             <p:outputPanel autoUpdate="true">
                                 
                                 
-                                    <p:inputTextarea value="#{cultivosSearchController.selected.descripcion}" rows="5" cols="50"/> 
+                                    <p:inputTextarea value="#{miscultivosSearchController.selected.descripcion}" rows="5" cols="50"/> 
                                   
                                 
                             </p:outputPanel>

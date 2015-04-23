@@ -12,49 +12,63 @@
         </h:head>
 
         <h:body>
-
+            <h:form id="form" prependId="false">
+                  <p:growl id="growl" showDetail="true" />
             <pm:page id="main">
                 <pm:header title="HECAS"></pm:header>
+                
                 <pm:content>
+                    
                      <pm:field>
                         <p:graphicImage value="/resources/imagenes/picudo.jpg" width="40px" height="40px"/>
-                        <p:button value="Subir foto"  icon="ui-icon-info"/>   
+   <p:fileUpload   auto="true" label="#{app['boton.foto']}" fileUploadListener="#{usuariosController.handleFileUpload}" update="growl,foto"/>
                     </pm:field>
+                    
                     <pm:field>
-                        <p:outputLabel for="textarea1" value="Nombre" />
-                        <p:inputText id="textarea1" />
+                         <p:outputLabel value="Nombre"/>
+                                    <p:inputText  value="#{usuariosController.usuarios.nombre}"/>
                     </pm:field>
                      <pm:field>
-                    <p:outputLabel for="textarea2" value="Email" />
-                    <p:inputText id="textarea2" />
+                  <p:outputLabel value="Email"/>
+                                    <p:inputText value="#{usuariosController.usuarios.email}" />
                     </pm:field> 
+                    
                      <pm:field>
-                    <p:outputLabel  value="Password" />
-                    <p:password />
-                    </pm:field>  
-                     <pm:field>
-                    <p:outputLabel  value="Confirmar Password" />
-                    <p:password />
-                    </pm:field>  
-                     <pm:field>
-                    <p:outputLabel  value="Facebook" />
-                  <p:inputText  />
-                    </pm:field>  
-                     <pm:field>
-                    <p:outputLabel  value="Twitter" />
-                  <p:inputText />
-                    </pm:field>  
-                     <pm:field>
-                    <p:outputLabel  value="Movil" />
-                  <p:inputText />
+                   <p:outputLabel value="Password"/>
+                                    <p:password  value="#{usuariosController.usuarios.password}"/>
+            
                     </pm:field>  
                     
-<p:commandButton value="Guardar" type="button" icon="ui-icon-check"/>
+                     <pm:field>
+                  <p:outputLabel value="Telefono"/>
+                                    <p:inputText  value="#{usuariosController.usuarios.telefono}"/>   
+                    </pm:field>  
+                     <pm:field>
+                   <p:outputLabel value="Celular"/>
+                                    <p:inputText  value="#{usuariosController.usuarios.celular}"/>  
+                    </pm:field>  
+                     <pm:field>
+                   <p:outputLabel value="Sexo"/>
+
+                                    <p:selectOneMenu value="#{usuariosController.usuarios.sexo}">
+                                        <f:selectItem itemLabel="Masculino" itemValue="Masculino" />
+                                        <f:selectItem itemLabel="Femenino" itemValue="Femenino" />
+                                    </p:selectOneMenu>
+                    </pm:field>
+                    <pm:field>
+                        <p:outputLabel value="Profesion"/>
+                                    <p:inputText  value="#{usuariosController.usuarios.profesion}"/> 
+                    </pm:field>
+                    
+
 
                 </pm:content>
-                <pm:footer title=""></pm:footer>
+                <pm:footer title="">
+                     <p:commandButton value="Guardar" update="form,growl" actionListener="#{usuariosController.save()}"/>
+                     <p:button value="Regresar" outcome="index" />
+                </pm:footer>
             </pm:page>
-
+</h:form>
         </h:body>
 
     </f:view>
