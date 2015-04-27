@@ -21,11 +21,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.inject.Inject;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.primefaces.event.FileUploadEvent;
 import org.primefaces.event.map.PointSelectEvent;
 import org.primefaces.model.UploadedFile;
 import org.primefaces.model.map.LatLng;
+import org.primefaces.push.EventBus;
+import org.primefaces.push.EventBusFactory;
 
 /**
  *
@@ -245,7 +249,7 @@ public class AlertasController implements Serializable, IController {
             JSFUtil.addSuccessMessage("Guardado exitosamente");
             alertas = new Alertas();
             this.nuevoregistro = false;
-//             notificarPUSH();
+            notificarPUSH();
         } catch (Exception e) {
             JSFUtil.addErrorMessage(e.getLocalizedMessage());
         }
@@ -330,8 +334,8 @@ public class AlertasController implements Serializable, IController {
             alertas.setLatitud(latlng.getLat());
 
             alertas.setLongitud(String.valueOf(latlng.getLng()));
-            System.out.println(";atitud "+ alertas.getLatitud() + "longitud: " +alertas.getLongitud());
-            JSFUtil.addWarningMessage(";atitud "+ alertas.getLatitud() + "longitud: " +alertas.getLongitud());
+//            System.out.println(";atitud "+ alertas.getLatitud() + "longitud: " +alertas.getLongitud());
+//            JSFUtil.addWarningMessage(";atitud "+ alertas.getLatitud() + "longitud: " +alertas.getLongitud());
         } catch (Exception ex) {
             JSFUtil.addErrorMessage("Error " + ex.getLocalizedMessage());
         }
@@ -382,5 +386,20 @@ public class AlertasController implements Serializable, IController {
             JSFUtil.addErrorMessage("handleFileUpload()" + e.getLocalizedMessage());
         }
 
+    }
+    
+    public void notificarPUSH() {
+        try {
+            String summary = "Nuevo Elemento";
+        String detail = "Se agrego a la lista";
+        String CHANNEL = "/notify";
+
+        EventBus eventBus = EventBusFactory.getDefault().eventBus();
+        eventBus.publish(CHANNEL, new FacesMessage(StringEscapeUtils.escapeHtml(summary), StringEscapeUtils.escapeHtml(detail)));
+            System.out.println("notificarPUSH()");
+        } catch (Exception e) {
+             JSFUtil.addErrorMessage("notificarPUSH()" + e.getLocalizedMessage());
+        }
+        
     }
 }

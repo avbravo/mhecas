@@ -13,20 +13,25 @@
         </h:head>
 
         <h:body>
-            <h:form id="form" prependId="false">
+            <h:form id="form" prependId="false" enctype="multipart/form-data">
                 <p:growl id="growl" showDetail="true" />
                 <pm:page id="main">
                     <pm:header title="CREAR ALERTAS"></pm:header>
                     <pm:content>
                         <p:button value="Regresar a Alertas" outcome="alertas" icon="ui-icon-info"/>   
 
-                        <pm:field>
+<!--                        <pm:field>
                             <h:form enctype="multipart/form-data">
                                 <h:graphicImage id="foto" value="/resources/alertas/#{alertasController.alertas.foto}" height="80" width="80"/>
                                 <p:fileUpload value="#{alertasController.handleFileUpload}"   mode="simple" update="growl,foto"/>
                                 <p:commandButton value="Upload" icon="ui-icon-arrow-u" ajax="false" actionListener="#{alertasController.handleFileUpload}" disabled="false"/>      
                             </h:form>
-                        </pm:field>
+                        </pm:field>-->
+                         <pm:field>
+                              <h:graphicImage id="foto" value="/resources/fotos/#{alertasController.alertas.foto}" height="80" width="80"/>
+                                    <p:fileUpload   auto="true" label="Foto" fileUploadListener="#{alertasController.handleFileUpload}" update="growl,foto"/>
+  </pm:field>
+                                    
 
                         <pm:field>
                             <p:outputLabel for="slider" value="% de Afectacion" />

@@ -13,7 +13,22 @@
         </h:head>
 
         <h:body>
+              <script type="text/javascript">
+            function handleMessage(facesmessage) {
+                facesmessage.severity = 'info';
+
+                PF('wmsj').show([facesmessage]);
+            }
+        </script>    
+
+
+        
+ 
             <h:form id="form" prependId="false">
+                 <p:growl id="msj" widgetVar="wmsj" showDetail="true" />
+                <p:socket onMessage="handleMessage" channel="/notify" >
+            <p:ajax event="message" update="msj,main:dataListAlertas" />
+        </p:socket>
                 <pm:page id="main">
                     <pm:header title="HECAS"></pm:header>
                     <pm:content>
@@ -22,7 +37,7 @@
                             <p:button value="Crear" outcome="crearalerta" icon="ui-icon-info"/> 
                         </p:panelGrid>
 
-                        <p:dataList value="#{alertasSearchController.alertasList}" var="car" pm:data-inset="true" paginator="true" rows="5">
+                        <p:dataList id="dataListAlertas" value="#{alertasSearchController.alertasList}" var="car" pm:data-inset="true" paginator="true" rows="5">
                             <f:facet name="header">
                                 Alertas
                             </f:facet>
