@@ -20,7 +20,17 @@
                     <pm:content>
                         <p:button value="Regresar a Alertas" outcome="alertas" icon="ui-icon-info"/>   
 
-
+<!--                        <pm:field>
+                            <h:form enctype="multipart/form-data">
+                                <h:graphicImage id="foto" value="/resources/alertas/#{alertasController.alertas.foto}" height="80" width="80"/>
+                                <p:fileUpload value="#{alertasController.handleFileUpload}"   mode="simple" update="growl,foto"/>
+                                <p:commandButton value="Upload" icon="ui-icon-arrow-u" ajax="false" actionListener="#{alertasController.handleFileUpload}" disabled="false"/>      
+                            </h:form>
+                        </pm:field>-->
+                         <pm:field>
+                              <h:graphicImage id="foto" value="/resources/fotos/#{alertasController.alertas.foto}" height="80" width="80"/>
+                                    <p:fileUpload   auto="true" label="Foto" fileUploadListener="#{alertasController.handleFileUpload}" update="growl,foto"/>
+  </pm:field>
                                     
 
                         <pm:field>
@@ -126,14 +136,6 @@
                             <p:calendar value="#{alertasController.alertas.fecha}" pattern="dd/MM/yyyy" />
 
                         </pm:field>
-                        
-                        
-                         <pm:field>
-                             <p:fileUpload value="#{alertasController.file}" mode="simple" disabled="false"/>
-    <p:commandButton value="Upload" icon="ui-icon-arrow-u" ajax="false" actionListener="#{alertasController.upload}" disabled="false"/>
-    
-                            
-  </pm:field>
                     </pm:content>
                     <pm:footer title="">
                         <p:commandButton value="Guardar" update="form,growl" actionListener="#{alertasController.save()}"/>

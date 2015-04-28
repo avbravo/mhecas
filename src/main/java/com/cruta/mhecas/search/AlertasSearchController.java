@@ -91,8 +91,7 @@ public class AlertasSearchController implements Serializable, ISearchController 
     }
 
     public List<Alertas> getAlertasList() {
-        System.out.println("Invocado" + JSFUtil.getHoraActual());
-        System.out.println("registros "+alertasList.size());
+      
         return alertasList;
     }
 

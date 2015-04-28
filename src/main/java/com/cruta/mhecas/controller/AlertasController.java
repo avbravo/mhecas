@@ -22,11 +22,13 @@ import java.util.HashMap;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import org.apache.commons.lang.StringEscapeUtils;
-import org.primefaces.event.FileUploadEvent;
+
 import org.primefaces.event.map.PointSelectEvent;
 import org.primefaces.model.UploadedFile;
+
 import org.primefaces.model.map.LatLng;
 import org.primefaces.push.EventBus;
 import org.primefaces.push.EventBusFactory;
@@ -251,7 +253,7 @@ public class AlertasController implements Serializable, IController {
             this.nuevoregistro = false;
             notificarPUSH();
         } catch (Exception e) {
-            JSFUtil.addErrorMessage(e.getLocalizedMessage());
+            JSFUtil.addErrorMessage("save()" +e.getLocalizedMessage());
         }
         return null;
     }
@@ -334,8 +336,7 @@ public class AlertasController implements Serializable, IController {
             alertas.setLatitud(latlng.getLat());
 
             alertas.setLongitud(String.valueOf(latlng.getLng()));
-//            System.out.println(";atitud "+ alertas.getLatitud() + "longitud: " +alertas.getLongitud());
-//            JSFUtil.addWarningMessage(";atitud "+ alertas.getLatitud() + "longitud: " +alertas.getLongitud());
+
         } catch (Exception ex) {
             JSFUtil.addErrorMessage("Error " + ex.getLocalizedMessage());
         }
@@ -343,22 +344,14 @@ public class AlertasController implements Serializable, IController {
         // addMessage(new FacesMessage(FacesMessage.SEVERITY_INFO, "Point Selected", "Lat:" + latlng.getLat() + ", Lng:" + latlng.getLng()));
     }
 
-//    public void notificarPUSH() {
-//
-//        String summary = "Nuevo Elemento";
-//        String detail = "Se agrego a la lista";
-//        String CHANNEL = "/notify";
-//
-//        EventBus eventBus = EventBusFactory.getDefault().eventBus();
-//        eventBus.publish(CHANNEL, new FacesMessage(StringEscapeUtils.escapeHtml(summary), StringEscapeUtils.escapeHtml(detail)));
-//    }
-    public void handleFileUpload(FileUploadEvent event) {
-        try {
-
-            //   UploadedFile file = event.getFile();
-            System.out.println(" file " + file.getFileName());
-//application code
-            String destination = JSFUtil.getPathFotosAlertas();
+  
+    public void upload() {
+        try{    
+        if(file != null) {
+            FacesMessage message = new FacesMessage("Succesful", file.getFileName() + " is uploaded.");
+            FacesContext.getCurrentInstance().addMessage(null, message);
+        }
+          String destination = JSFUtil.getPathFotosAlertas();
             if (destination == null) {
                 JSFUtil.addErrorMessage(rf.getMensajeArb("warning.noseobtuvopath"));
             } else {
@@ -381,12 +374,13 @@ public class AlertasController implements Serializable, IController {
 
                 }
             }
-
-        } catch (Exception e) {
-            JSFUtil.addErrorMessage("handleFileUpload()" + e.getLocalizedMessage());
+        } catch (Exception ex) {
+            JSFUtil.addErrorMessage("upload() " + ex.getLocalizedMessage());
         }
-
     }
+    
+    
+    
     
     public void notificarPUSH() {
         try {
@@ -402,4 +396,40 @@ public class AlertasController implements Serializable, IController {
         }
         
     }
+    
+    
+//     public void handleFileUpload(FileUploadEvent event) {
+//        try {
+//
+//            UploadedFile file = event.getFile();
+////application code
+//            String destination = JSFUtil.getPathFotosPacientes();
+//            if (destination == null) {
+//                JSFUtil.addErrorMessage(rf.getMensajeArb("warning.noseobtuvopath"));
+//            } else {
+//                Boolean continuarGenerado = true;
+//                /*
+//                 verifica que no exista una imagen con ese nombre
+//                 */
+//                String nuevoNombreLogo = "";
+//                while (continuarGenerado) {
+//                    nuevoNombreLogo = JSFUtil.getUUID() + JSFUtil.getExtension(file.getFileName());
+//                    datosPersonalesPaciente.setFotoPersonal(nuevoNombreLogo);
+//                    List<DatosPersonalesPaciente> list = datosPersonalesPacienteFacade.findByFotoPersonal(nuevoNombreLogo);
+//                    if (list == null || list.isEmpty()) {
+//                        continuarGenerado = false;
+//                    }
+//
+//                }
+//
+//                if (JSFUtil.copyFile(nuevoNombreLogo, file.getInputstream(), destination)) {
+//
+//                }
+//            }
+//
+//        } catch (Exception e) {
+//            JSFUtil.addErrorMessage("handleFileUpload()" + e.getLocalizedMessage());
+//        }
+//
+//    }
 }
